@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Start {
     public static void main(String[] args) {
+        System.out.println("HWEWPOIJpadf");
         Model m = new Model("jdbc:mysql://localhost:3306/tweb", "root", "root");
         ArrayList<Utenti> utenti = m.getUtenti();
         for (Utenti u: utenti)
