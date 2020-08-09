@@ -12,8 +12,8 @@ import java.io.PrintWriter;
 import java.net.PasswordAuthentication;
 
 
-@WebServlet(name = "Utenti")
-public class Utenti extends HttpServlet {
+@WebServlet(name = "UtentiServlet")
+public class UtentiServlet extends HttpServlet {
 
     Model model = null;
 
