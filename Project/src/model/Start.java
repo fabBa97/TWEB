@@ -29,9 +29,5 @@ public class Start {
             System.out.println(r);
         System.out.println("FINE");
 
-        /*ArrayList<Storico> storico = Model.queryDB5();
-        for (Storico s: storico)
-            System.out.println(s);
-        System.out.println("FINE");*/
     }
 }
