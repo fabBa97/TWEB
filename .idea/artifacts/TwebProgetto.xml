@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="TwebProgetto">
+    <output-path>$PROJECT_DIR$/out/artifacts/TwebProgetto</output-path>
+    <root id="root" />
+  </artifact>
+</component>

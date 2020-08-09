@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="login">
+    <title>Autenticazione</title>
+
+    <link rel="canonical" href="index.html">
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Custom styles for this page -->
+    <link rel="stylesheet" type="text/css" href="css/floating-labels.css">
+</head>
+<body>
+<section class="form-signin">
+    <div id="loginApp">
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">Autenticazione</h1>
+        </div>
+
+        <form v-if="showLoginForm" @submit.prevent="onSubmit">
+            <div class="form-label-group">
+                <input type="text" id="inputUserName" v-model="userName" class="form-control" placeholder="Nome utente" required autofocus>
+                <label for="inputUserName">Nome Utente</label>
+            </div>
+
+            <div class="form-label-group">
+                <input type="password" id="inputPassword" v-model="passWord" class="form-control" placeholder="Password" required>
+                <label for="inputPassword">Parola d'ordine</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Ricordami in futuro
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button>
+            <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2020</p>
+        </form>
+
+        <article class="text-center mb-4">
+            <h2 v-if="authenticated === false" class="h3 mb-3 font-weight-normal">Nome utente o parola d'ordine sbagliato</h2>
+            <h2 v-else-if="authenticated" class="h3 mb-3 font-weight-normal">Successo</h2>
+        </article>
+
+        <article>
+            <nav v-if="authenticated">
+                <li v-if="admin"><a href="/TWEBProgettoPrenotazioni/insertProfessor.html">Inserire Docente</a></li>
+                <li v-if="admin"><a href="/TWEBProgettoPrenotazioni/insertCourse.html">Inserire Corso</a></li>
+                <li><a href="/TWEBProgettoPrenotazioni/unbooking.html">Prenotazioni</a></li>
+                <li><a href="/TWEBProgettoPrenotazioni/history.html">Storico</a></li>
+                <li><a href="/TWEBProgettoPrenotazioni/index.html">Inizio</a></li>
+            </nav>
+        </article>
+    </div>
+</section>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- development version, includes helpful console warnings -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script src="js/login.js"></script>
+
+</body>
+</html>
