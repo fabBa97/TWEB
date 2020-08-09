@@ -1,0 +1,229 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Creato il: Ago 09, 2020 alle 11:27
+-- Versione del server: 10.4.13-MariaDB
+-- Versione PHP: 7.4.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `tweb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `corsi`
+--
+
+CREATE TABLE `corsi` (
+  `ID_corso` int(11) NOT NULL,
+  `Nome` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `corsi`
+--
+
+INSERT INTO `corsi` (`ID_corso`, `Nome`) VALUES
+(1, 'Matematica'),
+(2, 'Italiano'),
+(3, 'Latino'),
+(4, 'Inglese'),
+(5, 'Chimica'),
+(6, 'Fisica');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `docenti`
+--
+
+CREATE TABLE `docenti` (
+  `Nome` varchar(25) NOT NULL,
+  `Cognome` varchar(25) NOT NULL,
+  `Id_docente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `docenti`
+--
+
+INSERT INTO `docenti` (`Nome`, `Cognome`, `Id_docente`) VALUES
+('Mario', 'Rossi', 1),
+('Silvia', 'Saporetti', 2),
+('Carla', 'Bengasi', 3),
+('Mauro', 'Foti', 4),
+('Cristina', 'Ciocia', 5),
+('Tiziana', 'Basanisi', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `insegnamenti`
+--
+
+CREATE TABLE `insegnamenti` (
+  `ID_corso` int(11) NOT NULL,
+  `ID_docente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `insegnamenti`
+--
+
+INSERT INTO `insegnamenti` (`ID_corso`, `ID_docente`) VALUES
+(1, 1),
+(1, 4),
+(2, 3),
+(3, 3),
+(4, 5),
+(5, 6),
+(6, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `ripetizioni`
+--
+
+CREATE TABLE `ripetizioni` (
+  `ID_rip` int(11) NOT NULL,
+  `Stato` set('disponibile','prenotato','svolto','disdetta') NOT NULL,
+  `Giorno` varchar(9) NOT NULL,
+  `Ora_i` int(11) NOT NULL,
+  `Ora_f` int(11) NOT NULL,
+  `ID_corso` int(20) NOT NULL,
+  `id_docente` int(11) NOT NULL,
+  `Username` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `ripetizioni`
+--
+
+INSERT INTO `ripetizioni` (`ID_rip`, `Stato`, `Giorno`, `Ora_i`, `Ora_f`, `ID_corso`, `id_docente`, `Username`) VALUES
+(1, 'prenotato', 'Lunedi', 15, 16, 1, 1, 'Admin'),
+(2, 'disdetta', 'Lunedi', 15, 16, 6, 2, 'utente_1'),
+(3, 'disponibile', 'mercoledi', 16, 17, 5, 6, NULL),
+(4, 'disponibile', 'venerdi', 18, 19, 2, 3, NULL),
+(5, 'svolto', 'giovedi', 16, 17, 1, 4, 'utente_1'),
+(6, 'prenotato', 'martedi', 19, 20, 4, 5, 'utente_2'),
+(7, 'disponibile', 'giovedi', 18, 19, 6, 2, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `utenti`
+--
+
+CREATE TABLE `utenti` (
+  `Username` varchar(20) NOT NULL,
+  `Password` varchar(8) NOT NULL,
+  `Amministratore` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `utenti`
+--
+
+INSERT INTO `utenti` (`Username`, `Password`, `Amministratore`) VALUES
+('Admin', '01234A', 0),
+('utente_1', 'abcd1', 0),
+('utente_2', '12ab34', 0);
+
+--
+-- Indici per le tabelle scaricate
+--
+
+--
+-- Indici per le tabelle `corsi`
+--
+ALTER TABLE `corsi`
+  ADD PRIMARY KEY (`ID_corso`),
+  ADD UNIQUE KEY `docente` (`ID_corso`);
+
+--
+-- Indici per le tabelle `docenti`
+--
+ALTER TABLE `docenti`
+  ADD PRIMARY KEY (`Id_docente`);
+
+--
+-- Indici per le tabelle `insegnamenti`
+--
+ALTER TABLE `insegnamenti`
+  ADD PRIMARY KEY (`ID_corso`,`ID_docente`),
+  ADD KEY `docente` (`ID_corso`),
+  ADD KEY `corso` (`ID_corso`);
+
+--
+-- Indici per le tabelle `ripetizioni`
+--
+ALTER TABLE `ripetizioni`
+  ADD PRIMARY KEY (`ID_rip`),
+  ADD KEY `id_docente` (`id_docente`),
+  ADD KEY `Username_2` (`Username`),
+  ADD KEY `corso` (`ID_corso`) USING BTREE;
+
+--
+-- Indici per le tabelle `utenti`
+--
+ALTER TABLE `utenti`
+  ADD PRIMARY KEY (`Username`);
+
+--
+-- AUTO_INCREMENT per le tabelle scaricate
+--
+
+--
+-- AUTO_INCREMENT per la tabella `docenti`
+--
+ALTER TABLE `docenti`
+  MODIFY `Id_docente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- Limiti per le tabelle scaricate
+--
+
+--
+-- Limiti per la tabella `corsi`
+--
+ALTER TABLE `corsi`
+  ADD CONSTRAINT `docente` FOREIGN KEY (`ID_corso`) REFERENCES `insegnamenti` (`ID_corso`);
+
+--
+-- Limiti per la tabella `docenti`
+--
+ALTER TABLE `docenti`
+  ADD CONSTRAINT `docenti_ibfk_2` FOREIGN KEY (`Id_docente`) REFERENCES `ripetizioni` (`id_docente`);
+
+--
+-- Limiti per la tabella `insegnamenti`
+--
+ALTER TABLE `insegnamenti`
+  ADD CONSTRAINT `corso` FOREIGN KEY (`ID_corso`) REFERENCES `corsi` (`ID_corso`);
+
+--
+-- Limiti per la tabella `ripetizioni`
+--
+ALTER TABLE `ripetizioni`
+  ADD CONSTRAINT `campo` FOREIGN KEY (`ID_corso`) REFERENCES `corsi` (`ID_corso`),
+  ADD CONSTRAINT `ripetizioni_ibfk_2` FOREIGN KEY (`id_docente`) REFERENCES `docenti` (`Id_docente`),
+  ADD CONSTRAINT `ripetizioni_ibfk_3` FOREIGN KEY (`Username`) REFERENCES `utenti` (`Username`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
