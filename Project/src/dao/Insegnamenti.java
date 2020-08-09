@@ -19,7 +19,7 @@ public class Insegnamenti{
 
 
     public String toString() {
-        return Nome + " " + Cognome + " " + id_docente;
+        return "corso: " + id_corso + "docente: " + id_docente;
     }
 
 }

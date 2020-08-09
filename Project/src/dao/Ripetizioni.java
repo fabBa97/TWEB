@@ -59,6 +59,6 @@ public class Ripetizioni {
 
 
     public String toString() {
-        return id_rip + " " + Giorno+ " " + Ora_i + " " + Ora_f+" "+Corso+ " "+ id_docente;
+        return id_rip + " " + giorno+ " " + ora_i + " " + ora_f+" "+ corso+ " "+ id_docente;
     }
 }

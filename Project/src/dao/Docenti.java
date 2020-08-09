@@ -1,8 +1,8 @@
 package dao;
 
 public class Docenti {
-    private String Nome;
-    private String Cognome;
+    private String nome;
+    private String cognome;
     private int id_docente;
 
 
